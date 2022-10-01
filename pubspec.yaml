@@ -1,0 +1,72 @@
+name: projeto_hpg
+description: A new Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_geocoder:
+    git:
+      url: https://github.com/JCKodel/flutter_geocoder.git
+      ref: "7059f6f"
+
+  firebase_core: "^1.3.0"
+  firebase_auth: "^2.0.0"
+  firebase_database: ^8.0.0
+  cloud_firestore: ^3.4.4
+  provider: ^5.0.0
+  path_provider: ^2.0.2
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.2
+  geolocator: ^9.0.1
+  google_maps_flutter: ^2.2.0
+  geoflutterfire: ^3.0.2
+  get: ^4.6.5
+  footer: ^0.0.4
+  geocoding: ^2.0.5
+  # geocoder: ^0.2.1
+  flutter_map: ^2.2.0
+  latlong2: ^0.8.1
+  latlng: ^0.2.0
+  google_fonts: ^3.0.1
+  email_validator: ^2.1.17
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  uses-material-design: true
+
+
+  assets:
+  - assets/logo_hana01.png
+  - assets/logo_hana02.png
+  - assets/logo_hpg01.png
+  - assets/logo_hpg02.png
+  - assets/logo_hana011.png
+  - assets/logo_hana022.png
+  - assets/logo_hpg011.png
+  - assets/logo_hpg022.png
+  - assets/icon_hidrante.png
+  - assets/fire-hydrant_32.png
+  - assets/fire-hydrant_64.png

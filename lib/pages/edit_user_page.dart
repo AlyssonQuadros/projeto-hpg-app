@@ -1,29 +1,22 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter/src/gestures/tap.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:projeto_hpg/main.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:projeto_hpg/pages/mapa_page.dart';
 
-import '../services/auth_service.dart';
-import '../pages/login_page.dart';
 import '../widgets/utils.dart';
 
-class CadastroPage extends StatefulWidget {
-  final Function() onClickedSignIn;
-
-  const CadastroPage({
-    Key? key,
-    required this.onClickedSignIn,
-  }) : super(key: key);
+class EditUserPage extends StatefulWidget {
+  const EditUserPage({super.key});
 
   @override
-  _CadastroPageState createState() => _CadastroPageState();
+  State<EditUserPage> createState() => _EditUserPageState();
 }
 
-class _CadastroPageState extends State<CadastroPage> {
+class _EditUserPageState extends State<EditUserPage> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -65,7 +58,7 @@ class _CadastroPageState extends State<CadastroPage> {
                 height: 40,
                 alignment: Alignment.center,
                 child: Text(
-                  "Crie a sua conta:",
+                  "Edite os seus dados:",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.roboto(
                     textStyle: styleTitle,
@@ -155,58 +148,39 @@ class _CadastroPageState extends State<CadastroPage> {
                   primary: btnEntrar,
                   // primary: Theme.of(context).colorScheme.primary,
                 ),
-                icon: Icon(Icons.arrow_forward_outlined),
-                onPressed: cadastrar,
-                label: Text("Cadastrar",
+                icon: Icon(Icons.save),
+                onPressed: () {},
+                label: Text("Salvar",
                     style: TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),
-            SizedBox(height: 24),
             Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RichText(
-                      text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                          text: 'Já possui uma conta? ',
-                          children: [
-                        TextSpan(
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = widget.onClickedSignIn,
-                            text: 'Faça login',
-                            style: TextStyle(
-                                color: Color(0xFF0645AD), fontSize: 18))
-                      ])),
-                ],
+              padding:
+                  EdgeInsets.only(top: 10, left: 25, right: 25, bottom: 10),
+              // ignore: deprecated_member_use
+              child: ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: Size.fromHeight(50),
+                  primary: Colors.white,
+                  side: BorderSide(color: btnEntrar, width: 1),
+                  // primary: Theme.of(context).colorScheme.primary,
+                ).copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+                icon: Icon(Icons.arrow_back, color: Color(0xFF3589EC)),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapaPage(),
+                    ),
+                  );
+                },
+                label: Text("Voltar",
+                    style: TextStyle(color: Color(0xFF3589EC), fontSize: 20)),
               ),
-            )
+            ),
           ],
         ),
       ),
     ));
-  }
-
-  Future cadastrar() async {
-    final isValid = formKey.currentState!.validate();
-    if (!isValid) return;
-
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator()));
-
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e);
-
-      Utils.showSnackBar(e.message);
-    }
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

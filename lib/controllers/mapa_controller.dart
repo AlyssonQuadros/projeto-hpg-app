@@ -2,15 +2,20 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:projeto_hpg/pages/mapa_page.dart';
 import '../database/db.dart';
 import '../widgets/hidrante_details.dart';
+import '../widgets/hidrante_detalhes.dart';
 
 class MapaController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
+  final raio = 0.0.obs;
+
   late StreamSubscription<Position> positionStream;
   LatLng _position = LatLng(-25.094704144120772,
       -50.16134946964497); //-25.140434575803752, -50.169471515351454
@@ -20,6 +25,36 @@ class MapaController extends GetxController {
   static MapaController get to => Get.find<MapaController>();
   get mapsController => _mapsController;
   get position => _position;
+  String get distancia => raio.value < 1
+      ? '${(raio.value * 1000).toStringAsFixed(0)} m'
+      : '${(raio.value).toStringAsFixed(0)} km';
+
+  filtrarHidrantes() {
+    final geo = Geoflutterfire();
+    final db = DB.get();
+
+    GeoFirePoint center = geo.point(
+      latitude: latitude.value,
+      longitude: longitude.value,
+    );
+
+    CollectionReference ref = db.collection('hidrantes');
+
+    String field = 'position';
+
+    Stream<List<DocumentSnapshot>> stream = geo
+        .collection(collectionRef: ref)
+        .within(center: center, radius: raio.value, field: field);
+
+    stream.listen((List<DocumentSnapshot> hidrantes) {
+      markers.clear();
+      hidrantes.forEach((hidrante) {
+        addMarker(hidrante);
+        update();
+      });
+      Get.back();
+    });
+  }
 
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
@@ -50,7 +85,22 @@ class MapaController extends GetxController {
               size: Size(200, 200),
             ),
             'assets/fire-hydrant_64.png'),
-        onTap: () => showDetails(hidrante.data()),
+        onTap: () => {
+          showModalBottomSheet(
+            context: appKey.currentState!.context,
+            builder: (context) => HidranteDetails(
+              nome: hidrante['nome'],
+              imagem: hidrante['imagem'],
+              endereco: hidrante['endereco'],
+              condicao: hidrante['condicao'],
+              pressao: hidrante['pressao'],
+              vazao: hidrante['vazao'],
+              acesso: hidrante['acesso'],
+              status: hidrante['status'],
+              tipo: hidrante['tipo'],
+            ),
+          )
+        },
       ),
     );
     update();
@@ -61,6 +111,13 @@ class MapaController extends GetxController {
       HidranteDetails(
         nome: hidrante['nome'],
         imagem: hidrante['imagem'],
+        endereco: hidrante['endereco'],
+        condicao: hidrante['condicao'],
+        pressao: hidrante['pressao'],
+        vazao: hidrante['vazao'],
+        acesso: hidrante['acesso'],
+        status: hidrante['status'],
+        tipo: hidrante['tipo'],
       ),
       barrierColor: Colors.transparent,
     );

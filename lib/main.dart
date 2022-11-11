@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projeto_hpg/pages/mapa_page.dart';
+import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
 import 'package:projeto_hpg/services/auth_service.dart';
 import 'package:projeto_hpg/widgets/utils.dart';
 

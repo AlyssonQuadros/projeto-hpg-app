@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:projeto_hpg/pages/Mapa/mapa_page.dart';
+import 'package:projeto_hpg/pages/Mapa/mapa_page_pboa.dart';
 import '../database/db.dart';
 import '../widgets/hidrante_details.dart';
 import '../widgets/hidrante_detalhes.dart';
 
-class MapaController extends GetxController {
+class MapaControllerPBoa extends GetxController {
   final FirebaseFirestore _database = FirebaseFirestore.instance;
 
   final latitude = 0.0.obs;
@@ -24,7 +24,7 @@ class MapaController extends GetxController {
   late GoogleMapController _mapsController;
   final markers = Set<Marker>();
 
-  static MapaController get to => Get.find<MapaController>();
+  static MapaControllerPBoa get to => Get.find<MapaControllerPBoa>();
   get mapsController => _mapsController;
   get position => _position;
   String get distancia => raio.value < 1
@@ -61,7 +61,7 @@ class MapaController extends GetxController {
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
     getPosicao();
-    loadHidrantesAll();
+    loadHidrantesBoa();
   }
 
   loadHidrantesAll() async {
@@ -119,12 +119,10 @@ class MapaController extends GetxController {
             // hidrante['sigla'] != null
             //     ? showIcon(hidrante, myIcon)
             //     : 'assets/fire-hydrant_64-vermelho.png'),
-            hidrante['sigla'] == 'DL01'
-                ? 'assets/fire-hydrant_64-amarelo.png'
-                : 'assets/fire-hydrant_64-vermelho.png'),
+            'assets/fire-hydrant_64-verde.png'),
         onTap: () => {
           showModalBottomSheet(
-            context: appKey.currentState!.context,
+            context: appKeyBoa.currentState!.context,
             builder: (context) => HidranteDetails(
               sigla: hidrante['sigla'],
               imagem: hidrante['imagem'],

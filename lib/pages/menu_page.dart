@@ -7,7 +7,7 @@ import 'package:footer/footer_view.dart';
 import 'package:provider/provider.dart';
 
 import '../services/auth_service.dart';
-import 'mapa_page.dart';
+import 'mapa/mapa_page.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({Key? key}) : super(key: key);

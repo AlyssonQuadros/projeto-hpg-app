@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:projeto_hpg/pages/mapa_page.dart';
+import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
+import 'package:projeto_hpg/main.dart';
 
 import '../widgets/utils.dart';
 
@@ -182,5 +183,29 @@ class _EditUserPageState extends State<EditUserPage> {
         ),
       ),
     ));
+  }
+
+  Future cadastrar() async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) return;
+
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => Center(child: CircularProgressIndicator()));
+
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+
+      String message = 'Este email já está em uso por outro usuário';
+
+      Utils.showSnackBar(message);
+    }
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 }

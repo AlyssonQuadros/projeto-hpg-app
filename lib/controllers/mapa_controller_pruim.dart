@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:projeto_hpg/pages/Mapa/mapa_page.dart';
+import 'package:projeto_hpg/pages/Mapa/mapa_page_pruim.dart';
 import '../database/db.dart';
 import '../widgets/hidrante_details.dart';
 import '../widgets/hidrante_detalhes.dart';
 
-class MapaController extends GetxController {
+class MapaControllerPRuim extends GetxController {
   final FirebaseFirestore _database = FirebaseFirestore.instance;
 
   final latitude = 0.0.obs;
@@ -24,7 +24,7 @@ class MapaController extends GetxController {
   late GoogleMapController _mapsController;
   final markers = Set<Marker>();
 
-  static MapaController get to => Get.find<MapaController>();
+  static MapaControllerPRuim get to => Get.find<MapaControllerPRuim>();
   get mapsController => _mapsController;
   get position => _position;
   String get distancia => raio.value < 1
@@ -61,7 +61,7 @@ class MapaController extends GetxController {
   onMapCreated(GoogleMapController gmc) async {
     _mapsController = gmc;
     getPosicao();
-    loadHidrantesAll();
+    loadHidrantesRuim();
   }
 
   loadHidrantesAll() async {
@@ -78,7 +78,7 @@ class MapaController extends GetxController {
     hidrantes.docs.forEach((hidrante) => addMarker(hidrante));
   }
 
-  loadHidrantesBoa() async {
+  loadHidrantesRuim() async {
     // FirebaseFirestore db = DB.get();
     // final hidrantes = await db.collection('hidrantes').get();
 
@@ -94,7 +94,7 @@ class MapaController extends GetxController {
     //     }).toList());
 
     final hidrantes =
-        await _hidranteRef.where('pressao', isEqualTo: 'Boa').get();
+        await _hidranteRef.where('pressao', isEqualTo: 'Ruim').get();
 
     hidrantes.docs.forEach((hidrante) => addMarker(hidrante));
   }
@@ -119,12 +119,10 @@ class MapaController extends GetxController {
             // hidrante['sigla'] != null
             //     ? showIcon(hidrante, myIcon)
             //     : 'assets/fire-hydrant_64-vermelho.png'),
-            hidrante['sigla'] == 'DL01'
-                ? 'assets/fire-hydrant_64-amarelo.png'
-                : 'assets/fire-hydrant_64-vermelho.png'),
+            'assets/fire-hydrant_64-vermelho.png'),
         onTap: () => {
           showModalBottomSheet(
-            context: appKey.currentState!.context,
+            context: appKeyRuim.currentState!.context,
             builder: (context) => HidranteDetails(
               sigla: hidrante['sigla'],
               imagem: hidrante['imagem'],

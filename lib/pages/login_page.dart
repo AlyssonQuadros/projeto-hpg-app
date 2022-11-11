@@ -217,7 +217,10 @@ class _LoginPageState extends State<LoginPage> {
     } on FirebaseAuthException catch (e) {
       print(e);
 
-      Utils.showSnackBar(e.message);
+      String message =
+          "Email informado não encontrado. Informe um email cadastrado no sistema.";
+
+      Utils.showSnackBar(message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

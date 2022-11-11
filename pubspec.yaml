@@ -30,9 +30,14 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  geolocator: ^9.0.1
+
   google_maps_flutter: ^2.2.0
-  geoflutterfire: ^3.0.2
+  geolocator: ^9.0.1
+  flutter_google_places: ^0.3.0
+  awesome_snackbar_content: ^0.0.8
+  http: ^0.13.4
+
+  # geoflutterfire: ^3.0.2
   get: ^4.6.5
   footer: ^0.0.4
   geocoding: ^2.0.5
@@ -41,10 +46,11 @@ dependencies:
   latlng: ^0.2.0
   google_fonts: ^3.0.1
   email_validator: ^2.1.17
-  flutter_google_places_hoc081098: ^1.1.0
   google_maps_webservice: ^0.0.20-nullsafety.5
   google_api_headers: ^1.3.0
   package_info_plus_windows: ^2.1.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -72,4 +78,9 @@ flutter:
   - assets/logo_hpg022.png
   - assets/icon_hidrante.png
   - assets/fire-hydrant_32.png
-  - assets/fire-hydrant_64.png
+  - assets/fire-hydrant_64-vermelho.png
+  - assets/fire-hydrant_64-amarelo.png
+  - assets/fire-hydrant_64-azul.png
+  - assets/fire-hydrant_64-laranja.png
+  - assets/fire-hydrant_64-roxo.png
+  - assets/fire-hydrant_64-verde.png

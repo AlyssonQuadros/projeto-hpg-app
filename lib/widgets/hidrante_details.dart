@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HidranteDetails extends StatelessWidget {
-  final String nome;
+  final String sigla;
   final String imagem;
   final String endereco;
   final String condicao;
@@ -13,7 +13,7 @@ class HidranteDetails extends StatelessWidget {
 
   const HidranteDetails({
     Key? key,
-    required this.nome,
+    required this.sigla,
     required this.imagem,
     required this.endereco,
     required this.condicao,
@@ -44,7 +44,7 @@ class HidranteDetails extends StatelessWidget {
               color: Colors.black.withOpacity(0.7),
             ),
             child: Text(
-              nome,
+              sigla,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 30,

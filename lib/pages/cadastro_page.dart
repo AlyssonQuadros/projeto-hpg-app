@@ -7,8 +7,6 @@ import 'package:flutter/src/gestures/tap.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:projeto_hpg/main.dart';
 
-import '../services/auth_service.dart';
-import '../pages/login_page.dart';
 import '../widgets/utils.dart';
 
 class CadastroPage extends StatefulWidget {
@@ -205,7 +203,9 @@ class _CadastroPageState extends State<CadastroPage> {
     } on FirebaseAuthException catch (e) {
       print(e);
 
-      Utils.showSnackBar(e.message);
+      String message = 'Este email já está em uso por outro usuário';
+
+      Utils.showSnackBar(message);
     }
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

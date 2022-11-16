@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:projeto_hpg/pages/Mapa/mapa_page.dart';
+import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
 import '../database/db.dart';
 import '../widgets/hidrante_details.dart';
 import '../widgets/hidrante_detalhes.dart';
@@ -103,6 +103,24 @@ class MapaController extends GetxController {
     GeoPoint point = hidrante.get('position.geopoint');
     String myIcon = 'assets/fire-hydrant_64-vermelho.png';
 
+    String icone = '';
+
+    if (hidrante.get('pressao') == 'Boa') {
+      icone = 'assets/fire-hydrant_64-verde.png';
+    }
+    if (hidrante.get('pressao') == 'Regular') {
+      icone = 'assets/fire-hydrant_64-amarelo.png';
+    }
+    if (hidrante.get('pressao') == 'Ruim') {
+      icone = 'assets/fire-hydrant_64-vermelho.png';
+    }
+    if (hidrante.get('status') == 'Manutenção') {
+      icone = 'assets/fire-hydrant_64-roxo.png';
+    }
+    if (hidrante.get('tipo') == 'Recalque') {
+      icone = 'assets/fire-hydrant_64-azul.png';
+    }
+
     markers.add(
       Marker(
         markerId: MarkerId(hidrante.id),
@@ -116,52 +134,34 @@ class MapaController extends GetxController {
             ImageConfiguration(
               size: Size(200, 200),
             ),
-            // hidrante['sigla'] != null
-            //     ? showIcon(hidrante, myIcon)
-            //     : 'assets/fire-hydrant_64-vermelho.png'),
-            hidrante['sigla'] == 'DL01'
-                ? 'assets/fire-hydrant_64-amarelo.png'
+            hidrante['sigla'] != ''
+                ? icone
                 : 'assets/fire-hydrant_64-vermelho.png'),
         onTap: () => {
-          showModalBottomSheet(
+          showModalBottomSheet<dynamic>(
+            isScrollControlled: true,
             context: appKey.currentState!.context,
-            builder: (context) => HidranteDetails(
-              sigla: hidrante['sigla'],
-              imagem: hidrante['imagem'],
-              endereco: hidrante['endereco'],
-              condicao: hidrante['condicao'],
-              pressao: hidrante['pressao'],
-              vazao: hidrante['vazao'],
-              acesso: hidrante['acesso'],
-              status: hidrante['status'],
-              tipo: hidrante['tipo'],
-            ),
+            builder: (context) {
+              return Wrap(children: [
+                HidranteDetails(
+                  sigla: hidrante['sigla'],
+                  imagem: hidrante['imagem'],
+                  endereco: hidrante['endereco'],
+                  condicao: hidrante['condicao'],
+                  pressao: hidrante['pressao'],
+                  vazao: hidrante['vazao'],
+                  acesso: hidrante['acesso'],
+                  status: hidrante['status'],
+                  tipo: hidrante['tipo'],
+                ),
+              ]);
+            },
           )
         },
       ),
     );
 
     update();
-  }
-
-  showIcon(hidrante, myIcon) async {
-    if (hidrante['pressao'] == 'Boa') {
-      myIcon = 'assets/fire-hydrant_64-verde.png';
-    } else if (hidrante['pressao'] == 'Regular') {
-      myIcon = 'assets/fire-hydrant_64-amarelo';
-    } else if (hidrante['pressao'] == 'Ruim') {
-      myIcon = 'assets/fire-hydrant_64-vermelho.png';
-    } else {
-      myIcon = 'assets/fire-hydrant_64-vermelho.png';
-    }
-
-    if (hidrante['status'] == 'Manutenção') {
-      myIcon = 'assets/fire-hydrant_64-roxo.png';
-    }
-
-    if (hidrante['tipo'] == 'Recalque') {
-      myIcon = 'assets/fire-hydrant_64-azul.png';
-    }
   }
 
   showDetails(hidrante) {

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:projeto_hpg/controllers/mapa_controller_pboa.dart';
-import 'package:projeto_hpg/pages/Mapa/mapa_page.dart';
+// import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
 import 'package:projeto_hpg/pages/edit_user_page.dart';
 import 'package:projeto_hpg/pages/lista_page.dart';
 import 'package:projeto_hpg/pages/menu_page.dart';
@@ -20,6 +20,7 @@ import 'package:google_api_headers/google_api_headers.dart';
 import '../add_hidrante_page.dart';
 import 'mapa_page_pregular.dart';
 import 'mapa_page_pruim.dart';
+import 'mapa_page.dart';
 
 final appKeyBoa = GlobalKey();
 final user = FirebaseAuth.instance.currentUser!;

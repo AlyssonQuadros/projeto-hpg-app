@@ -26,226 +26,271 @@ class HidranteDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(0),
-      child: Stack(
+    return Container(
+      child: Wrap(
         children: [
           Image.network(
             imagem,
-            height: 500,
+            height: 300,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.cover,
           ),
-          Container(
-            margin: EdgeInsets.only(top: 20, left: 24, right: 0, bottom: 0),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              sigla,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
+          Padding(
+              padding: EdgeInsets.only(top: 24, left: 24),
+              child: Text(
+                sigla,
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                ),
+              )),
+          Row(children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 0, left: 24, top: 10, right: 0),
+              // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 24),
+              child: Text(
+                "Endereço:",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
+            ),
+          ]),
+          Row(children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 0, left: 24, top: 10, right: 0),
+              // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 24),
+              child: Text(
+                endereco,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 15,
+                ),
+              ),
+            ),
+          ]),
+          Container(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 15, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                        child: Text(
+                          "Pressão:",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 10, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                        child: Text(
+                          pressao,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 15, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                        child: Text(
+                          "Condição:",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 10, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                        child: Text(
+                          condicao,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 20, left: 0, top: 10, right: 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 30, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                        child: Text(
+                          "Tipo:",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 10, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                        child: Text(
+                          tipo,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 80, left: 0, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Endereço",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 110, left: 24, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              endereco,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 170, left: 0, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Condição",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 200, left: 24, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              condicao,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 170, left: 116, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Pressão",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 200, left: 140, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              pressao,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 170, left: 236, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Vazão",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 200, left: 260, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              vazao,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 240, left: 0, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Acesso",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 270, left: 24, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              acesso,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 240, left: 116, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Status",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 270, left: 140, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              status,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 310, left: 0, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            child: Text(
-              "Tipo",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 340, left: 24, right: 24, bottom: 24),
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(12)),
-              color: Colors.black.withOpacity(0.7),
-            ),
-            child: Text(
-              tipo,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 70, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                        child: Text(
+                          "Vazão:",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 10, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                        child: Text(
+                          vazao,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 70, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                        child: Text(
+                          "Status:",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 10, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                        child: Text(
+                          status,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(bottom: 20, left: 0, top: 10, right: 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 70, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                        child: Text(
+                          "Acesso:",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(
+                            bottom: 0, left: 10, top: 10, right: 0),
+                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                        child: Text(
+                          acesso,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
         ],

@@ -31,12 +31,12 @@ class HidranteDetails extends StatelessWidget {
         children: [
           Image.network(
             imagem,
-            height: 300,
+            height: 380,
             width: MediaQuery.of(context).size.width,
             fit: BoxFit.cover,
           ),
           Padding(
-              padding: EdgeInsets.only(top: 24, left: 24),
+              padding: EdgeInsets.only(top: 15, left: 15),
               child: Text(
                 sigla,
                 style: TextStyle(
@@ -46,7 +46,7 @@ class HidranteDetails extends StatelessWidget {
               )),
           Row(children: [
             Container(
-              padding: EdgeInsets.only(bottom: 0, left: 24, top: 10, right: 0),
+              padding: EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
               // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 24),
               child: Text(
                 "Endereço:",
@@ -60,7 +60,7 @@ class HidranteDetails extends StatelessWidget {
           ]),
           Row(children: [
             Container(
-              padding: EdgeInsets.only(bottom: 0, left: 24, top: 10, right: 0),
+              padding: EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
               // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 24),
               child: Text(
                 endereco,
@@ -71,227 +71,173 @@ class HidranteDetails extends StatelessWidget {
               ),
             ),
           ]),
-          Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 15, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        child: Text(
-                          "Pressão:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 10, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        child: Text(
-                          pressao,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
+          Row(
+            children: [
+              Container(
+                padding:
+                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                child: Text(
+                  "Pressão:",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 15, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        child: Text(
-                          "Condição:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 10, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        child: Text(
-                          condicao,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                child: Text(
+                  pressao,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 20, left: 0, top: 10, right: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 30, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        child: Text(
-                          "Tipo:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 10, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
-                        child: Text(
-                          tipo,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-          Container(
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 70, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
-                        child: Text(
-                          "Vazão:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 10, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
-                        child: Text(
-                          vazao,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
+          Row(
+            children: [
+              Container(
+                padding:
+                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                child: Text(
+                  "Condição:",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 0, left: 0, top: 10, right: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 70, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
-                        child: Text(
-                          "Status:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 10, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
-                        child: Text(
-                          status,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                child: Text(
+                  condicao,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsets.only(bottom: 20, left: 0, top: 10, right: 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 70, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
-                        child: Text(
-                          "Acesso:",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(
-                            bottom: 0, left: 10, top: 10, right: 0),
-                        // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
-                        child: Text(
-                          acesso,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ],
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                padding:
+                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                child: Text(
+                  "Tipo:",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
-              ],
-            ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
+                child: Text(
+                  tipo,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                padding:
+                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 50),
+                child: Text(
+                  "Vazão:",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 50),
+                child: Text(
+                  vazao,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                padding:
+                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 50),
+                child: Text(
+                  "Status:",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 50),
+                child: Text(
+                  status,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Container(
+                padding:
+                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 50),
+                child: Text(
+                  "Acesso:",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
+                child: Text(
+                  acesso,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15,
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

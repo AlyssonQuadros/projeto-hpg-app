@@ -226,13 +226,17 @@ class _MapaPagePRegularState extends State<MapaPagePRegular> {
                   },
                   child: Text(
                     'Todos',
-                    style: TextStyle(fontSize: 18),
+                    style: TextStyle(fontSize: 18, color: Color(0xFF3589EC)),
                   ),
                   style: ButtonStyle(
                       shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(40.0))),
+                          borderRadius: BorderRadius.circular(40.0),
+                          side: BorderSide(
+                            color: Color(0xFF3589EC),
+                            width: 1.5,
+                          ))),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF3589EC)),
+                          MaterialStateProperty.all<Color>(Color(0xFFFFFFFF)),
                       minimumSize: MaterialStateProperty.all(Size(180, 50))),
                 ),
               ),
@@ -280,7 +284,7 @@ class _MapaPagePRegularState extends State<MapaPagePRegular> {
                   },
                   label: Text(
                     'Regular',
-                    style: TextStyle(fontSize: 18, color: Color(0xFF3589EC)),
+                    style: TextStyle(fontSize: 18, color: Color(0xFFFFFFFF)),
                   ),
                   icon: Image.asset(
                     'assets/fire-hydrant_64-amarelo.png',
@@ -294,7 +298,7 @@ class _MapaPagePRegularState extends State<MapaPagePRegular> {
                             width: 1.5,
                           ))),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFFFFFFFF)),
+                          MaterialStateProperty.all<Color>(Color(0xFF3589EC)),
                       minimumSize: MaterialStateProperty.all(Size(180, 50))),
                 ),
               ),
@@ -356,7 +360,7 @@ class _MapaPagePRegularState extends State<MapaPagePRegular> {
       key: appKeyRegular,
       appBar: AppBar(
         backgroundColor: Colors.red,
-        title: Text('Mapa de pressão regular'),
+        title: Text('Mapa de Hidrantes'),
         // shape: RoundedRectangleBorder(
         //   borderRadius: BorderRadius.vertical(
         //     bottom: Radius.circular(30),

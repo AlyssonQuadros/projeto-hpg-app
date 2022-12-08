@@ -2,24 +2,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:projeto_hpg/pages/add_hidrante_page.dart';
-import 'package:projeto_hpg/pages/lista_page_pboa.dart';
 import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
 import 'package:projeto_hpg/pages/menu_page.dart';
 
 import '../controllers/chip_controller.dart';
 import '../controllers/firebase_controller.dart';
 import '../models/hidrante_model.dart';
+import 'lista_page.dart';
+import 'lista_page_pboa.dart';
 import 'lista_page_pregular.dart';
-import 'lista_page_pruim.dart';
 
-class ListaPage extends StatefulWidget {
-  const ListaPage({super.key});
+class ListaPagePRuim extends StatefulWidget {
+  const ListaPagePRuim({super.key});
 
   @override
-  State<ListaPage> createState() => _ListaPageState();
+  State<ListaPagePRuim> createState() => _ListaPagePRuimState();
 }
 
-class _ListaPageState extends State<ListaPage> {
+class _ListaPagePRuimState extends State<ListaPagePRuim> {
   final FirestoreController firestoreController =
       Get.put(FirestoreController());
 
@@ -37,20 +37,6 @@ class _ListaPageState extends State<ListaPage> {
   final TextEditingController _statusController = TextEditingController();
   final TextEditingController _tipoController = TextEditingController();
   final TextEditingController _acessoController = TextEditingController();
-
-  final List<String> selectPressao = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectVazao = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectCondicao = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectStatus = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectTipo = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectAcesso = ['Boa', 'Regular', 'Ruim'];
-
-  late String _pressao = 'Boa';
-  late String _vazao = 'Boa';
-  late String _condicao = 'Boa';
-  late String _status = 'Boa';
-  late String _tipo = 'Boa';
-  late String _acesso = 'Boa';
 
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
     if (documentSnapshot != null) {
@@ -147,49 +133,32 @@ class _ListaPageState extends State<ListaPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 160,
+                          width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: DropdownButtonFormField<String>(
+                            child: TextField(
+                              controller: _pressaoController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.blue)),
-                                labelText: 'Pressão',
-                              ),
-                              value: documentSnapshot!['pressao'],
-                              items: selectPressao.map((_pressaoController) {
-                                return DropdownMenuItem(
-                                  value: _pressaoController,
-                                  child: Text('$_pressaoController'),
-                                );
-                              }).toList(),
-                              onChanged: (val) =>
-                                  setState(() => _pressao = val!),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                          width: 3, color: Colors.blue)),
+                                  labelText: 'Pressão'),
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 160,
+                          width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: DropdownButtonFormField<String>(
+                            child: TextField(
+                              controller: _vazaoController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.blue)),
-                                labelText: 'Vazão',
-                              ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
-                                return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('$_vazaoController'),
-                                );
-                              }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                          width: 3, color: Colors.blue)),
+                                  labelText: 'Vazão'),
                             ),
                           ),
                         ),
@@ -199,48 +168,32 @@ class _ListaPageState extends State<ListaPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 160,
+                          width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: DropdownButtonFormField<String>(
+                            child: TextField(
+                              controller: _condicaoController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.blue)),
-                                labelText: 'Condição',
-                              ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
-                                return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Boa'),
-                                );
-                              }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                          width: 3, color: Colors.blue)),
+                                  labelText: 'Condição'),
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 160,
+                          width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: DropdownButtonFormField<String>(
+                            child: TextField(
+                              controller: _statusController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.blue)),
-                                labelText: 'Status',
-                              ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
-                                return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Ativo'),
-                                );
-                              }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                          width: 3, color: Colors.blue)),
+                                  labelText: 'Status'),
                             ),
                           ),
                         ),
@@ -250,48 +203,32 @@ class _ListaPageState extends State<ListaPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 160,
+                          width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: DropdownButtonFormField<String>(
+                            child: TextField(
+                              controller: _tipoController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.blue)),
-                                labelText: 'Tipo',
-                              ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
-                                return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Subterrâneo'),
-                                );
-                              }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                          width: 3, color: Colors.blue)),
+                                  labelText: 'Tipo'),
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 160,
+                          width: 170,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: DropdownButtonFormField<String>(
+                            child: TextField(
+                              controller: _acessoController,
                               decoration: InputDecoration(
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide(
-                                        width: 3, color: Colors.blue)),
-                                labelText: 'Acesso',
-                              ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
-                                return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Fácil'),
-                                );
-                              }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                      borderSide: BorderSide(
+                                          width: 3, color: Colors.blue)),
+                                  labelText: 'Acesso'),
                             ),
                           ),
                         ),
@@ -328,8 +265,8 @@ class _ListaPageState extends State<ListaPage> {
                                           .update({
                                         "sigla": sigla,
                                         "endereco": endereco,
-                                        "pressao": _pressao,
-                                        "vazao": _vazao,
+                                        "pressao": pressao,
+                                        "vazao": vazao,
                                         "condicao": condicao,
                                         "status": status,
                                         "tipo": tipo,
@@ -493,14 +430,17 @@ class _ListaPageState extends State<ListaPage> {
                     alignment: Alignment.bottomLeft,
                     padding: const EdgeInsets.only(top: 8, left: 18),
                     child: Text(
-                      'Todos os hidrantes:',
+                      'Pressão ruim:',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: StreamBuilder(
-                      stream: _hidrantes.snapshots(),
+                      stream: FirebaseFirestore.instance
+                          .collection('hidrantes')
+                          .where('pressao', isEqualTo: 'Ruim')
+                          .snapshots(),
                       builder: (context,
                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {

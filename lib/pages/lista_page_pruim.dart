@@ -505,7 +505,7 @@ class _ListaPagePRuimState extends State<ListaPagePRuim> {
                     alignment: Alignment.bottomLeft,
                     padding: const EdgeInsets.only(top: 8, left: 18),
                     child: Text(
-                      'Pressão regular:',
+                      'Pressão ruim:',
                       style: TextStyle(fontSize: 20),
                     ),
                   ),

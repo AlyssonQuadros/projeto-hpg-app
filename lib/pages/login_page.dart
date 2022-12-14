@@ -218,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
       print(e);
 
       String message =
-          "Email informado não encontrado. Informe um email cadastrado no sistema.";
+          "Email ou senha incorreta. Informe um email e uma senha válida.";
 
       Utils.showSnackBar(message);
     }

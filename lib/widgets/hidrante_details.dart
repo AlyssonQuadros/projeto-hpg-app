@@ -239,7 +239,7 @@ class HidranteDetails extends StatelessWidget {
             children: [
               Container(
                 padding:
-                    EdgeInsets.only(bottom: 0, left: 15, top: 10, right: 0),
+                    EdgeInsets.only(bottom: 10, left: 15, top: 10, right: 0),
                 // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 50),
                 child: Text(
                   "Acesso:",
@@ -251,7 +251,8 @@ class HidranteDetails extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
+                padding:
+                    EdgeInsets.only(bottom: 10, left: 5, top: 10, right: 0),
                 // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 70),
                 child: Text(
                   acesso,

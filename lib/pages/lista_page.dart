@@ -40,17 +40,18 @@ class _ListaPageState extends State<ListaPage> {
 
   final List<String> selectPressao = ['Boa', 'Regular', 'Ruim'];
   final List<String> selectVazao = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectCondicao = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectStatus = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectTipo = ['Boa', 'Regular', 'Ruim'];
-  final List<String> selectAcesso = ['Boa', 'Regular', 'Ruim'];
-
-  late String _pressao = 'Boa';
-  late String _vazao = 'Boa';
-  late String _condicao = 'Boa';
-  late String _status = 'Boa';
-  late String _tipo = 'Boa';
-  late String _acesso = 'Boa';
+  final List<String> selectCondicao = [
+    'Boa',
+    'Seco',
+    'EM',
+    'ET',
+    'ES',
+    'RP',
+    'D'
+  ];
+  final List<String> selectStatus = ['Ativo', 'Inoperante', 'Manutenção'];
+  final List<String> selectTipo = ['Subterrâneo', 'Coluna', 'Recalque'];
+  final List<String> selectAcesso = ['Fácil', 'Regular', 'Difícil'];
 
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
     if (documentSnapshot != null) {
@@ -63,6 +64,13 @@ class _ListaPageState extends State<ListaPage> {
       _tipoController.text = documentSnapshot['tipo'];
       _acessoController.text = documentSnapshot['acesso'];
     }
+
+    String _pressao = documentSnapshot!['pressao'];
+    String _vazao = documentSnapshot!['vazao'];
+    String _condicao = documentSnapshot!['condicao'];
+    String _status = documentSnapshot!['status'];
+    String _tipo = documentSnapshot!['tipo'];
+    String _acesso = documentSnapshot!['acesso'];
 
     void showSnackBar(BuildContext context) {
       final snackBar = SnackBar(
@@ -210,14 +218,15 @@ class _ListaPageState extends State<ListaPage> {
                                         width: 3, color: Colors.blue)),
                                 labelText: 'Condição',
                               ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
+                              value: documentSnapshot!['condicao'],
+                              items: selectCondicao.map((_condicaoController) {
                                 return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Boa'),
+                                  value: _condicaoController,
+                                  child: Text('$_condicaoController'),
                                 );
                               }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                              onChanged: (val) =>
+                                  setState(() => _condicao = val!),
                             ),
                           ),
                         ),
@@ -233,14 +242,15 @@ class _ListaPageState extends State<ListaPage> {
                                         width: 3, color: Colors.blue)),
                                 labelText: 'Status',
                               ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
+                              value: documentSnapshot!['status'],
+                              items: selectStatus.map((_statusController) {
                                 return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Ativo'),
+                                  value: _statusController,
+                                  child: Text('$_statusController'),
                                 );
                               }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                              onChanged: (val) =>
+                                  setState(() => _status = val!),
                             ),
                           ),
                         ),
@@ -261,14 +271,14 @@ class _ListaPageState extends State<ListaPage> {
                                         width: 3, color: Colors.blue)),
                                 labelText: 'Tipo',
                               ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
+                              value: documentSnapshot!['tipo'],
+                              items: selectTipo.map((_tipoController) {
                                 return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Subterrâneo'),
+                                  value: _tipoController,
+                                  child: Text('$_tipoController'),
                                 );
                               }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                              onChanged: (val) => setState(() => _tipo = val!),
                             ),
                           ),
                         ),
@@ -284,14 +294,15 @@ class _ListaPageState extends State<ListaPage> {
                                         width: 3, color: Colors.blue)),
                                 labelText: 'Acesso',
                               ),
-                              value: documentSnapshot!['vazao'],
-                              items: selectVazao.map((_vazaoController) {
+                              value: documentSnapshot!['acesso'],
+                              items: selectAcesso.map((_acessoController) {
                                 return DropdownMenuItem(
-                                  value: _vazaoController,
-                                  child: Text('Fácil'),
+                                  value: _acessoController,
+                                  child: Text('$_acessoController'),
                                 );
                               }).toList(),
-                              onChanged: (val) => setState(() => _vazao = val!),
+                              onChanged: (val) =>
+                                  setState(() => _acesso = val!),
                             ),
                           ),
                         ),
@@ -330,10 +341,10 @@ class _ListaPageState extends State<ListaPage> {
                                         "endereco": endereco,
                                         "pressao": _pressao,
                                         "vazao": _vazao,
-                                        "condicao": condicao,
-                                        "status": status,
-                                        "tipo": tipo,
-                                        "acesso": acesso,
+                                        "condicao": _condicao,
+                                        "status": _status,
+                                        "tipo": _tipo,
+                                        "acesso": _acesso,
                                       });
 
                                       _siglaController.text = '';
@@ -376,6 +387,7 @@ class _ListaPageState extends State<ListaPage> {
   var hidranteList = <HidranteModel>[].obs;
 
   ChipController _chipController = Get.put(ChipController());
+  final ScrollController scrollController = ScrollController();
 
   @override
   Object getHidrantes(HidrantePressao pressao) {
@@ -500,36 +512,45 @@ class _ListaPageState extends State<ListaPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: StreamBuilder(
-                      stream: _hidrantes.snapshots(),
+                      stream: _hidrantes.orderBy('sigla').snapshots(),
                       builder: (context,
                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
-                          return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: streamSnapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              final DocumentSnapshot documentSnapshot =
-                                  streamSnapshot.data!.docs[index];
-                              return Card(
-                                margin: const EdgeInsets.all(10),
-                                child: ListTile(
-                                  title: Text(documentSnapshot['sigla']),
-                                  subtitle: Text(documentSnapshot['endereco']),
-                                  trailing: SizedBox(
-                                    width: 100,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                            icon: const Icon(Icons.edit),
-                                            onPressed: () =>
-                                                _update(documentSnapshot))
-                                      ],
+                          return Expanded(
+                            child: Scrollbar(
+                              interactive: true,
+                              thumbVisibility: true,
+                              controller: scrollController,
+                              child: ListView.builder(
+                                controller: scrollController,
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: streamSnapshot.data!.docs.length,
+                                itemBuilder: (context, index) {
+                                  final DocumentSnapshot documentSnapshot =
+                                      streamSnapshot.data!.docs[index];
+                                  return Card(
+                                    margin: const EdgeInsets.all(10),
+                                    child: ListTile(
+                                      title: Text(documentSnapshot['sigla']),
+                                      subtitle:
+                                          Text(documentSnapshot['endereco']),
+                                      trailing: SizedBox(
+                                        width: 100,
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                                icon: const Icon(Icons.edit),
+                                                onPressed: () =>
+                                                    _update(documentSnapshot))
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
+                                  );
+                                },
+                              ),
+                            ),
                           );
                         }
                         return const Center(

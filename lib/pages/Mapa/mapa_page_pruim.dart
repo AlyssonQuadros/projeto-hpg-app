@@ -37,9 +37,9 @@ final homeScaffoldKeyRuim = GlobalKey<ScaffoldState>();
 
 class _MapaPagePRuimState extends State<MapaPagePRuim> {
   String googleApikey = "AIzaSyDep9mDaFUm3iFdjNIB5bB_Si6-KrYHEOw";
-  String location = "Procurar endereço...";
+  GoogleMapController? mapController;
+  String location = "Procurar...";
   List<Marker> myMarker = [];
-  late GoogleMapController mapController;
   final user = FirebaseAuth.instance.currentUser!;
   String icon = 'assets/fire-hydrant_64-vermelho.png';
 
@@ -413,7 +413,7 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
                       mode: Mode.overlay,
                       types: [],
                       strictbounds: false,
-                      components: [Component(Component.country, 'np')],
+                      components: [Component(Component.country, 'br')],
                       //google_map_webservice package
                       onError: (err) {
                         print(err);
@@ -585,7 +585,9 @@ class NavigationDrawer extends StatelessWidget {
               title: const Text('Editar dados'),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => EditUserPage(),
+                  builder: (context) => EditUserPage(
+                    onClickedSignIn: () {},
+                  ),
                 ));
               },
             ),

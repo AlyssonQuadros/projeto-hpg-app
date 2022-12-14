@@ -38,6 +38,21 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
   final TextEditingController _tipoController = TextEditingController();
   final TextEditingController _acessoController = TextEditingController();
 
+  final List<String> selectPressao = ['Boa', 'Regular', 'Ruim'];
+  final List<String> selectVazao = ['Boa', 'Regular', 'Ruim'];
+  final List<String> selectCondicao = [
+    'Boa',
+    'Seco',
+    'EM',
+    'ET',
+    'ES',
+    'RP',
+    'D'
+  ];
+  final List<String> selectStatus = ['Ativo', 'Inoperante', 'Manutenção'];
+  final List<String> selectTipo = ['Subterrâneo', 'Coluna', 'Recalque'];
+  final List<String> selectAcesso = ['Fácil', 'Regular', 'Difícil'];
+
   Future<void> _update([DocumentSnapshot? documentSnapshot]) async {
     if (documentSnapshot != null) {
       _siglaController.text = documentSnapshot['sigla'];
@@ -49,6 +64,13 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
       _tipoController.text = documentSnapshot['tipo'];
       _acessoController.text = documentSnapshot['acesso'];
     }
+
+    String _pressao = documentSnapshot!['pressao'];
+    String _vazao = documentSnapshot!['vazao'];
+    String _condicao = documentSnapshot!['condicao'];
+    String _status = documentSnapshot!['status'];
+    String _tipo = documentSnapshot!['tipo'];
+    String _acesso = documentSnapshot!['acesso'];
 
     void showSnackBar(BuildContext context) {
       final snackBar = SnackBar(
@@ -133,67 +155,49 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 170,
+                          width: 160,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: TextField(
-                              controller: _pressaoController,
+                            child: DropdownButtonFormField<String>(
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                          width: 3, color: Colors.blue)),
-                                  labelText: 'Pressão'),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                                labelText: 'Pressão',
+                              ),
+                              value: documentSnapshot!['pressao'],
+                              items: selectPressao.map((_pressaoController) {
+                                return DropdownMenuItem(
+                                  value: _pressaoController,
+                                  child: Text('$_pressaoController'),
+                                );
+                              }).toList(),
+                              onChanged: (val) =>
+                                  setState(() => _pressao = val!),
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 170,
+                          width: 160,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: TextField(
-                              controller: _vazaoController,
+                            child: DropdownButtonFormField<String>(
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                          width: 3, color: Colors.blue)),
-                                  labelText: 'Vazão'),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          width: 170,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: TextField(
-                              controller: _condicaoController,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                          width: 3, color: Colors.blue)),
-                                  labelText: 'Condição'),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 170,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: TextField(
-                              controller: _statusController,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                          width: 3, color: Colors.blue)),
-                                  labelText: 'Status'),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                                labelText: 'Vazão',
+                              ),
+                              value: documentSnapshot!['vazao'],
+                              items: selectVazao.map((_vazaoController) {
+                                return DropdownMenuItem(
+                                  value: _vazaoController,
+                                  child: Text('$_vazaoController'),
+                                );
+                              }).toList(),
+                              onChanged: (val) => setState(() => _vazao = val!),
                             ),
                           ),
                         ),
@@ -203,32 +207,102 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 170,
+                          width: 160,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: TextField(
-                              controller: _tipoController,
+                            child: DropdownButtonFormField<String>(
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                          width: 3, color: Colors.blue)),
-                                  labelText: 'Tipo'),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                                labelText: 'Condição',
+                              ),
+                              value: documentSnapshot!['condicao'],
+                              items: selectCondicao.map((_condicaoController) {
+                                return DropdownMenuItem(
+                                  value: _condicaoController,
+                                  child: Text('$_condicaoController'),
+                                );
+                              }).toList(),
+                              onChanged: (val) =>
+                                  setState(() => _condicao = val!),
                             ),
                           ),
                         ),
                         SizedBox(
-                          width: 170,
+                          width: 160,
                           child: Padding(
                             padding: const EdgeInsets.all(10),
-                            child: TextField(
-                              controller: _acessoController,
+                            child: DropdownButtonFormField<String>(
                               decoration: InputDecoration(
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(12),
-                                      borderSide: BorderSide(
-                                          width: 3, color: Colors.blue)),
-                                  labelText: 'Acesso'),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                                labelText: 'Status',
+                              ),
+                              value: documentSnapshot!['status'],
+                              items: selectStatus.map((_statusController) {
+                                return DropdownMenuItem(
+                                  value: _statusController,
+                                  child: Text('$_statusController'),
+                                );
+                              }).toList(),
+                              onChanged: (val) =>
+                                  setState(() => _status = val!),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 160,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                                labelText: 'Tipo',
+                              ),
+                              value: documentSnapshot!['tipo'],
+                              items: selectTipo.map((_tipoController) {
+                                return DropdownMenuItem(
+                                  value: _tipoController,
+                                  child: Text('$_tipoController'),
+                                );
+                              }).toList(),
+                              onChanged: (val) => setState(() => _tipo = val!),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 160,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: DropdownButtonFormField<String>(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(
+                                        width: 3, color: Colors.blue)),
+                                labelText: 'Acesso',
+                              ),
+                              value: documentSnapshot!['acesso'],
+                              items: selectAcesso.map((_acessoController) {
+                                return DropdownMenuItem(
+                                  value: _acessoController,
+                                  child: Text('$_acessoController'),
+                                );
+                              }).toList(),
+                              onChanged: (val) =>
+                                  setState(() => _acesso = val!),
                             ),
                           ),
                         ),
@@ -265,12 +339,12 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
                                           .update({
                                         "sigla": sigla,
                                         "endereco": endereco,
-                                        "pressao": pressao,
-                                        "vazao": vazao,
-                                        "condicao": condicao,
-                                        "status": status,
-                                        "tipo": tipo,
-                                        "acesso": acesso,
+                                        "pressao": _pressao,
+                                        "vazao": _vazao,
+                                        "condicao": _condicao,
+                                        "status": _status,
+                                        "tipo": _tipo,
+                                        "acesso": _acesso,
                                       });
 
                                       _siglaController.text = '';
@@ -313,6 +387,7 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
   var hidranteList = <HidranteModel>[].obs;
 
   ChipController _chipController = Get.put(ChipController());
+  final ScrollController scrollController = ScrollController();
 
   @override
   Object getHidrantes(HidrantePressao pressao) {
@@ -444,32 +519,41 @@ class _ListaPagePRegularState extends State<ListaPagePRegular> {
                       builder: (context,
                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
-                          return ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: streamSnapshot.data!.docs.length,
-                            itemBuilder: (context, index) {
-                              final DocumentSnapshot documentSnapshot =
-                                  streamSnapshot.data!.docs[index];
-                              return Card(
-                                margin: const EdgeInsets.all(10),
-                                child: ListTile(
-                                  title: Text(documentSnapshot['sigla']),
-                                  subtitle: Text(documentSnapshot['endereco']),
-                                  trailing: SizedBox(
-                                    width: 100,
-                                    child: Row(
-                                      children: [
-                                        IconButton(
-                                            icon: const Icon(Icons.edit),
-                                            onPressed: () =>
-                                                _update(documentSnapshot))
-                                      ],
+                          return Expanded(
+                            child: Scrollbar(
+                              interactive: true,
+                              thumbVisibility: true,
+                              controller: scrollController,
+                              child: ListView.builder(
+                                controller: scrollController,
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: streamSnapshot.data!.docs.length,
+                                itemBuilder: (context, index) {
+                                  final DocumentSnapshot documentSnapshot =
+                                      streamSnapshot.data!.docs[index];
+                                  return Card(
+                                    margin: const EdgeInsets.all(10),
+                                    child: ListTile(
+                                      title: Text(documentSnapshot['sigla']),
+                                      subtitle:
+                                          Text(documentSnapshot['endereco']),
+                                      trailing: SizedBox(
+                                        width: 100,
+                                        child: Row(
+                                          children: [
+                                            IconButton(
+                                                icon: const Icon(Icons.edit),
+                                                onPressed: () =>
+                                                    _update(documentSnapshot))
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              );
-                            },
+                                  );
+                                },
+                              ),
+                            ),
                           );
                         }
                         return const Center(

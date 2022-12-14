@@ -11,10 +11,15 @@ import 'package:projeto_hpg/main.dart';
 import '../widgets/utils.dart';
 
 class EditUserPage extends StatefulWidget {
-  const EditUserPage({super.key});
+  final Function() onClickedSignIn;
+
+  const EditUserPage({
+    Key? key,
+    required this.onClickedSignIn,
+  }) : super(key: key);
 
   @override
-  State<EditUserPage> createState() => _EditUserPageState();
+  _EditUserPageState createState() => _EditUserPageState();
 }
 
 class _EditUserPageState extends State<EditUserPage> {
@@ -150,7 +155,7 @@ class _EditUserPageState extends State<EditUserPage> {
                   // primary: Theme.of(context).colorScheme.primary,
                 ),
                 icon: Icon(Icons.save),
-                onPressed: () {},
+                onPressed: cadastrar,
                 label: Text("Salvar",
                     style: TextStyle(color: Colors.white, fontSize: 20)),
               ),
@@ -185,6 +190,28 @@ class _EditUserPageState extends State<EditUserPage> {
     ));
   }
 
+  void showSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text('Dados editados com sucesso!'),
+      backgroundColor: Colors.teal,
+      behavior: SnackBarBehavior.floating,
+      action: SnackBarAction(
+        label: 'Fechar',
+        disabledTextColor: Colors.white,
+        textColor: Colors.yellow,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MapaPage(),
+            ),
+          );
+        },
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   Future cadastrar() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
@@ -199,6 +226,8 @@ class _EditUserPageState extends State<EditUserPage> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+
+      showSnackBar(context);
     } on FirebaseAuthException catch (e) {
       print(e);
 

@@ -26,6 +26,30 @@ class HidranteDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String itemCondicao = '';
+
+    if (condicao == 'Boa') {
+      itemCondicao = 'Boa';
+    }
+    if (condicao == 'Seco') {
+      itemCondicao = 'Seco';
+    }
+    if (condicao == 'EM') {
+      itemCondicao = 'EM - Emperrado';
+    }
+    if (condicao == 'ET') {
+      itemCondicao = 'ET - Enterrado';
+    }
+    if (condicao == 'ES') {
+      itemCondicao = 'ES - Espanado';
+    }
+    if (condicao == 'RP') {
+      itemCondicao = 'RP - Registro Profundo';
+    }
+    if (condicao == 'D') {
+      itemCondicao = 'D - Desconhecido';
+    }
+
     return Container(
       child: Wrap(
         children: [
@@ -118,7 +142,7 @@ class HidranteDetails extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 0, left: 5, top: 10, right: 0),
                 // padding: EdgeInsets.symmetric(vertical: 2, horizontal: 15),
                 child: Text(
-                  condicao,
+                  sigla != '' ? itemCondicao : 'Desconhecido',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 15,

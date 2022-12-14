@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:projeto_hpg/controllers/mapa_controller.dart';
+import 'package:projeto_hpg/pages/cadastro_page.dart';
 // import 'package:projeto_hpg/pages/mapa/mapa_page_pboa.dart';
 import 'package:projeto_hpg/pages/edit_user_page.dart';
 import 'package:projeto_hpg/pages/lista_page.dart';
@@ -36,9 +37,9 @@ final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapaPageState extends State<MapaPage> {
   String googleApikey = "AIzaSyDep9mDaFUm3iFdjNIB5bB_Si6-KrYHEOw";
-  String location = "Procurar endereço...";
+  GoogleMapController? mapController;
+  String location = "Procurar...";
   List<Marker> myMarker = [];
-  late GoogleMapController mapController;
   final user = FirebaseAuth.instance.currentUser!;
   String icon = 'assets/fire-hydrant_64-vermelho.png';
 
@@ -339,6 +340,7 @@ class _MapaPageState extends State<MapaPage> {
   Widget build(BuildContext context) {
     final controller = Get.put(MapaController());
     final user = FirebaseAuth.instance.currentUser!;
+    // final mapController = controller.onMapCreated;
 
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
@@ -408,7 +410,7 @@ class _MapaPageState extends State<MapaPage> {
                       mode: Mode.overlay,
                       types: [],
                       strictbounds: false,
-                      components: [Component(Component.country, 'np')],
+                      components: [Component(Component.country, 'br')],
                       //google_map_webservice package
                       onError: (err) {
                         print(err);
@@ -580,7 +582,9 @@ class NavigationDrawer extends StatelessWidget {
               title: const Text('Editar dados'),
               onTap: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => EditUserPage(),
+                  builder: (context) => EditUserPage(
+                    onClickedSignIn: () {},
+                  ),
                 ));
               },
             ),

@@ -17,6 +17,8 @@ import 'mapa_page_pregular.dart';
 import 'mapa_page_pruim.dart';
 import 'mapa_page_pboa.dart';
 
+import 'api/api_key.dart';
+
 final appKey = GlobalKey();
 final user = FirebaseAuth.instance.currentUser!;
 
@@ -30,7 +32,6 @@ class MapaPage extends StatefulWidget {
 final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
 class _MapaPageState extends State<MapaPage> {
-  String googleApikey = "AIzaSyDep9mDaFUm3iFdjNIB5bB_Si6-KrYHEOw";
   GoogleMapController? mapController;
   String location = "Procurar...";
   List<Marker> myMarker = [];

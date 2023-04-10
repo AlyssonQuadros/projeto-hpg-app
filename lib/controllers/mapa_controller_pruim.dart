@@ -103,6 +103,24 @@ class MapaControllerPRuim extends GetxController {
     GeoPoint point = hidrante.get('position.geopoint');
     String myIcon = 'assets/fire-hydrant_64-vermelho.png';
 
+    String icone = '';
+
+    if (hidrante.get('pressao') == 'Boa') {
+      icone = 'assets/fire-hydrant_64-verde.png';
+    }
+    if (hidrante.get('pressao') == 'Regular') {
+      icone = 'assets/fire-hydrant_64-amarelo.png';
+    }
+    if (hidrante.get('pressao') == 'Ruim') {
+      icone = 'assets/fire-hydrant_64-vermelho.png';
+    }
+    if (hidrante.get('status') == 'Manutenção') {
+      icone = 'assets/fire-hydrant_64-roxo.png';
+    }
+    if (hidrante.get('tipo') == 'Recalque') {
+      icone = 'assets/fire-hydrant_64-azul.png';
+    }
+
     markers.add(
       Marker(
         markerId: MarkerId(hidrante.id),
@@ -116,24 +134,28 @@ class MapaControllerPRuim extends GetxController {
             ImageConfiguration(
               size: Size(200, 200),
             ),
-            // hidrante['sigla'] != null
-            //     ? showIcon(hidrante, myIcon)
-            //     : 'assets/fire-hydrant_64-vermelho.png'),
-            'assets/fire-hydrant_64-vermelho.png'),
+            hidrante['sigla'] != ''
+                ? icone
+                : 'assets/fire-hydrant_64-vermelho.png'),
         onTap: () => {
-          showModalBottomSheet(
+          showModalBottomSheet<dynamic>(
+            isScrollControlled: true,
             context: appKeyRuim.currentState!.context,
-            builder: (context) => HidranteDetails(
-              sigla: hidrante['sigla'],
-              imagem: hidrante['imagem'],
-              endereco: hidrante['endereco'],
-              condicao: hidrante['condicao'],
-              pressao: hidrante['pressao'],
-              vazao: hidrante['vazao'],
-              acesso: hidrante['acesso'],
-              status: hidrante['status'],
-              tipo: hidrante['tipo'],
-            ),
+            builder: (context) {
+              return Wrap(children: [
+                HidranteDetails(
+                  sigla: hidrante['sigla'],
+                  imagem: hidrante['imagem'],
+                  endereco: hidrante['endereco'],
+                  condicao: hidrante['condicao'],
+                  pressao: hidrante['pressao'],
+                  vazao: hidrante['vazao'],
+                  acesso: hidrante['acesso'],
+                  status: hidrante['status'],
+                  tipo: hidrante['tipo'],
+                ),
+              ]);
+            },
           )
         },
       ),

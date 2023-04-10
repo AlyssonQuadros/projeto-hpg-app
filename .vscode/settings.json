@@ -3,5 +3,6 @@
         "Firestore",
         "icone",
         "sigla"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

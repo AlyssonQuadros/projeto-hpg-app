@@ -1,24 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:projeto_hpg/controllers/mapa_controller_pruim.dart';
-// import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
-// import 'package:projeto_hpg/pages/mapa/mapa_page_pboa.dart';
 import 'package:projeto_hpg/pages/edit_user_page.dart';
 import 'package:projeto_hpg/pages/lista_page.dart';
-import 'package:projeto_hpg/pages/menu_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter_google_places/flutter_google_places.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:google_api_headers/google_api_headers.dart';
+import 'package:projeto_hpg/pages/lista_page_pruim.dart';
 
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:google_api_headers/google_api_headers.dart';
-
-import '../add_hidrante_page.dart';
 import 'mapa_page_pregular.dart';
 import 'mapa_page_pboa.dart';
 import 'mapa_page.dart';
@@ -50,6 +45,11 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
   Set<Marker> markersList = {};
 
   late GoogleMapController googleMapController;
+
+  ValueNotifier<bool> isDialOpen = ValueNotifier(false);
+  bool customDialRoot = true;
+  bool extend = false;
+  bool rmIcons = false;
 
   legenda() {
     return SimpleDialog(
@@ -195,12 +195,12 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
       children: [
         // Obx(
         //   () => Slider(
-        //     value: MapaControllerPRuim.to.raio.value,
+        //     value: MapaController.to.raio.value,
         //     min: 0,
         //     max: 10,
         //     divisions: 10000,
-        //     label: MapaControllerPRuim.to.distancia,
-        //     onChanged: (value) => MapaControllerPRuim.to.raio.value = value,
+        //     label: MapaController.to.distancia,
+        //     onChanged: (value) => MapaController.to.raio.value = value,
         //   ),
         // ),
         Padding(
@@ -219,9 +219,9 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => MapaPage(),
-                      ),
+                      PageTransition(
+                          child: const MapaPage(),
+                          type: PageTransitionType.fade),
                     );
                   },
                   child: Text(
@@ -246,9 +246,9 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => MapaPagePBoa(),
-                      ),
+                      PageTransition(
+                          child: const MapaPagePBoa(),
+                          type: PageTransitionType.fade),
                     );
                   },
                   label: Text(
@@ -277,9 +277,9 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => MapaPagePRegular(),
-                      ),
+                      PageTransition(
+                          child: const MapaPagePRegular(),
+                          type: PageTransitionType.fade),
                     );
                   },
                   label: Text(
@@ -308,9 +308,9 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => MapaPagePRuim(),
-                      ),
+                      PageTransition(
+                          child: const MapaPagePRuim(),
+                          type: PageTransitionType.fade),
                     );
                   },
                   label: Text(
@@ -348,24 +348,130 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.startDocked,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(top: 0, bottom: 30, right: 0, left: 0),
-        child: FloatingActionButton(
-          onPressed: () {
-            showDialog(context: context, builder: (context) => filtro());
-          },
-          backgroundColor: Colors.indigoAccent,
-          child: const Icon(Icons.filter_list_alt, size: 30),
+        padding: const EdgeInsets.only(bottom: 20),
+        child: SpeedDial(
+          icon: Icons.keyboard_arrow_up_sharp,
+          activeIcon: Icons.keyboard_arrow_down_sharp,
+          spacing: 3,
+          openCloseDial: isDialOpen,
+          childPadding: const EdgeInsets.all(5),
+          spaceBetweenChildren: 4,
+          buttonSize:
+              Size.fromRadius(35), // SpeedDial size which defaults to 56 itself
+          // iconTheme: IconThemeData(size: 22),
+          label: extend
+              ? const Text("Open")
+              : null, // The label of the main button.
+          activeLabel: extend ? const Text("Close") : null,
+          childrenButtonSize: Size.fromRadius(35),
+          visible: true,
+          direction: SpeedDialDirection.up,
+          switchLabelPosition: false,
+          closeManually: false,
+          renderOverlay: true,
+          onOpen: () => debugPrint('OPENING DIAL'),
+          onClose: () => debugPrint('DIAL CLOSED'),
+          useRotationAnimation: true,
+          elevation: 8.0,
+          animationCurve: Curves.elasticInOut,
+          isOpenOnStart: false,
+          animationDuration: const Duration(milliseconds: 400),
+          children: [
+            SpeedDialChild(
+              child: !rmIcons ? const Icon(Icons.filter_alt_off) : null,
+              backgroundColor: Colors.deepOrange,
+              foregroundColor: Colors.white,
+              label: 'Todos',
+              visible: true,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: const MapaPage(), type: PageTransitionType.fade),
+                );
+              },
+            ),
+            SpeedDialChild(
+              child: !rmIcons
+                  ? Image.asset(
+                      'assets/fire-hydrant_64-verde.png',
+                      width: 30,
+                    )
+                  : null,
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.white,
+              label: 'Boa',
+              visible: true,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: const MapaPagePBoa(),
+                      type: PageTransitionType.fade),
+                );
+              },
+            ),
+            SpeedDialChild(
+              child: !rmIcons
+                  ? Image.asset(
+                      'assets/fire-hydrant_64-amarelo.png',
+                      width: 30,
+                    )
+                  : null,
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.white,
+              label: 'Regular',
+              visible: true,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: const MapaPagePRegular(),
+                      type: PageTransitionType.fade),
+                );
+              },
+            ),
+            SpeedDialChild(
+              child: !rmIcons
+                  ? Image.asset(
+                      'assets/fire-hydrant_64-vermelho.png',
+                      width: 30,
+                    )
+                  : null,
+              backgroundColor: Colors.red,
+              foregroundColor: Colors.white,
+              label: 'Ruim',
+              visible: true,
+              onTap: () {},
+            ),
+            SpeedDialChild(
+              child: !rmIcons ? const Icon(Icons.list_alt_sharp) : null,
+              backgroundColor: Colors.grey,
+              foregroundColor: Colors.white,
+              label: 'Todos',
+              visible: true,
+              onTap: () {
+                Navigator.push(
+                  context,
+                  PageTransition(
+                      child: const ListaPagePRuim(),
+                      type: PageTransitionType.fade),
+                );
+              },
+            ),
+          ],
         ),
       ),
       key: appKeyRuim,
       appBar: AppBar(
         backgroundColor: Colors.red,
+        centerTitle: true,
         title: Text('Mapa de Hidrantes'),
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.vertical(
-        //     bottom: Radius.circular(30),
-        //   ),
-        // ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(10),
+          ),
+        ),
         actions: <Widget>[
           Container(
             width: 60,
@@ -399,66 +505,6 @@ class _MapaPagePRuimState extends State<MapaPagePRuim> {
             onMapCreated: controller.onMapCreated,
           ),
         ),
-        // ElevatedButton(
-        //     onPressed: _handlePressButton,
-        //     child: const Text("Procurar endereço...")),
-        Positioned(
-            //search input bar
-            top: 0,
-            child: InkWell(
-                onTap: () async {
-                  var place = await PlacesAutocomplete.show(
-                      context: context,
-                      apiKey: googleApikey,
-                      mode: Mode.overlay,
-                      types: [],
-                      strictbounds: false,
-                      components: [Component(Component.country, 'br')],
-                      //google_map_webservice package
-                      onError: (err) {
-                        print(err);
-                      });
-
-                  if (place != null) {
-                    setState(() {
-                      location = place.description.toString();
-                    });
-
-                    //form google_maps_webservice package
-                    final plist = GoogleMapsPlaces(
-                      apiKey: googleApikey,
-                      apiHeaders: await GoogleApiHeaders().getHeaders(),
-                      //from google_api_headers package
-                    );
-                    String placeid = place.placeId ?? "0";
-                    final detail = await plist.getDetailsByPlaceId(placeid);
-                    final geometry = detail.result.geometry!;
-                    final lat = geometry.location.lat;
-                    final lang = geometry.location.lng;
-                    var newlatlang = LatLng(lat, lang);
-
-                    //move map camera to selected place with animation
-                    mapController?.animateCamera(CameraUpdate.newCameraPosition(
-                        CameraPosition(target: newlatlang, zoom: 17)));
-                  }
-                },
-                child: Padding(
-                  padding:
-                      EdgeInsets.only(top: 8, right: 15, left: 15, bottom: 15),
-                  child: Card(
-                    child: Container(
-                        padding: EdgeInsets.all(0),
-                        width: MediaQuery.of(context).size.width - 80,
-                        child: ListTile(
-                          title: Text(
-                            location,
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          trailing: Icon(Icons.search),
-                          dense: true,
-                        )),
-                  ),
-                )))
       ]),
     );
   }

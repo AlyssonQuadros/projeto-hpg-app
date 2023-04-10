@@ -4,9 +4,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
    <application
-        android:label="projeto_hpg"
+        android:label="HPG"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/logo_hpg022">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDep9mDaFUm3iFdjNIB5bB_Si6-KrYHEOw"/>
         <activity

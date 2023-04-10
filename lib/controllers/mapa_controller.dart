@@ -9,7 +9,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
 import '../database/db.dart';
 import '../widgets/hidrante_details.dart';
-import '../widgets/hidrante_detalhes.dart';
 
 class MapaController extends GetxController {
   final FirebaseFirestore _database = FirebaseFirestore.instance;

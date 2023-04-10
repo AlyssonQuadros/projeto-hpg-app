@@ -140,13 +140,6 @@ class _CadastroPageState extends State<CadastroPage> {
             Padding(
               padding:
                   EdgeInsets.only(top: 10, left: 25, right: 25, bottom: 10),
-              child: Divider(
-                color: Colors.grey,
-              ),
-            ),
-            Padding(
-              padding:
-                  EdgeInsets.only(top: 10, left: 25, right: 25, bottom: 10),
               child: ElevatedButton.icon(
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size.fromHeight(50),
@@ -159,15 +152,21 @@ class _CadastroPageState extends State<CadastroPage> {
                     style: TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),
-            SizedBox(height: 24),
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 10, left: 25, right: 25, bottom: 0),
+              child: Divider(
+                color: Colors.grey,
+              ),
+            ),
+            SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.only(top: 0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
                       text: TextSpan(
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                          style: TextStyle(color: Colors.black, fontSize: 15),
                           text: 'Já possui uma conta? ',
                           children: [
                         TextSpan(
@@ -175,7 +174,7 @@ class _CadastroPageState extends State<CadastroPage> {
                               ..onTap = widget.onClickedSignIn,
                             text: 'Faça login',
                             style: TextStyle(
-                                color: Color(0xFF0645AD), fontSize: 18))
+                                color: Color(0xFF0645AD), fontSize: 15))
                       ])),
                 ],
               ),

@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:projeto_hpg/pages/add_hidrante_page.dart';
 import 'package:projeto_hpg/pages/lista_page_pboa.dart';
 import 'package:projeto_hpg/pages/mapa/mapa_page.dart';
-import 'package:projeto_hpg/pages/menu_page.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../controllers/chip_controller.dart';
 import '../controllers/firebase_controller.dart';
@@ -516,40 +515,38 @@ class _ListaPageState extends State<ListaPage> {
                       builder: (context,
                           AsyncSnapshot<QuerySnapshot> streamSnapshot) {
                         if (streamSnapshot.hasData) {
-                          return Expanded(
-                            child: Scrollbar(
-                              interactive: true,
-                              thumbVisibility: true,
+                          return Scrollbar(
+                            interactive: true,
+                            thumbVisibility: true,
+                            controller: scrollController,
+                            child: ListView.builder(
                               controller: scrollController,
-                              child: ListView.builder(
-                                controller: scrollController,
-                                scrollDirection: Axis.vertical,
-                                shrinkWrap: true,
-                                itemCount: streamSnapshot.data!.docs.length,
-                                itemBuilder: (context, index) {
-                                  final DocumentSnapshot documentSnapshot =
-                                      streamSnapshot.data!.docs[index];
-                                  return Card(
-                                    margin: const EdgeInsets.all(10),
-                                    child: ListTile(
-                                      title: Text(documentSnapshot['sigla']),
-                                      subtitle:
-                                          Text(documentSnapshot['endereco']),
-                                      trailing: SizedBox(
-                                        width: 100,
-                                        child: Row(
-                                          children: [
-                                            IconButton(
-                                                icon: const Icon(Icons.edit),
-                                                onPressed: () =>
-                                                    _update(documentSnapshot))
-                                          ],
-                                        ),
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: streamSnapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot documentSnapshot =
+                                    streamSnapshot.data!.docs[index];
+                                return Card(
+                                  margin: const EdgeInsets.all(10),
+                                  child: ListTile(
+                                    title: Text(documentSnapshot['sigla']),
+                                    subtitle:
+                                        Text(documentSnapshot['endereco']),
+                                    trailing: SizedBox(
+                                      width: 100,
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                              icon: const Icon(Icons.edit),
+                                              onPressed: () =>
+                                                  _update(documentSnapshot))
+                                        ],
                                       ),
                                     ),
-                                  );
-                                },
-                              ),
+                                  ),
+                                );
+                              },
                             ),
                           );
                         }

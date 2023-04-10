@@ -188,15 +188,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_geocoder:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: "7059f6f"
-      resolved-ref: "7059f6f629336be2fa71117e971b5e7d9fd091f9"
-      url: "https://github.com/JCKodel/flutter_geocoder.git"
-    source: git
-    version: "0.2.2-nullsafety"
   flutter_google_places:
     dependency: "direct main"
     description:
@@ -232,6 +223,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  flutter_speed_dial:
+    dependency: "direct main"
+    description:
+      name: flutter_speed_dial
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "6.2.0"
   flutter_svg:
     dependency: transitive
     description:
@@ -529,6 +527,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  page_transition:
+    dependency: "direct main"
+    description:
+      name: page_transition
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.9"
   path:
     dependency: transitive
     description:
